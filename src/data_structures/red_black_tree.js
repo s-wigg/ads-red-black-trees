@@ -52,7 +52,7 @@ class RedBlackTree {
 
     // link node's parent to child
     child.parent = node.parent;
-    if (!node.parent.key) {
+    if (node === this._root) {
       this._root = child;
     } else if (node === node.parent.left) {
       node.parent.left = child;
@@ -85,7 +85,7 @@ class RedBlackTree {
 
     // link node's parent to child
     child.parent = node.parent;
-    if (!node.parent.key) {
+    if (node === this._root) {
       this._root = child;
     } else if (node === node.parent.right) {
       node.parent.right = child;
