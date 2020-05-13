@@ -46,7 +46,7 @@ class RedBlackTree {
 
     // turn child's left subtree into node's right subtree
     node.right = child.left;
-    if (child.left.key) {
+    if (child.left !== RBTNode.sentinel) {
       child.left.parent = node;
     }
 
@@ -79,7 +79,7 @@ class RedBlackTree {
 
     // turn child's right subtree into node's left subtree
     node.left = child.right;
-    if (child.right.key) {
+    if (child.right !== RBTNode.sentinel) {
       child.right.parent = node;
     }
 
