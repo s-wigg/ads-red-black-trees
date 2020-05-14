@@ -1,5 +1,5 @@
-import RedBlackTree from './red_black_tree';
-import { RBTNode } from './red_black_tree';
+import RedBlackTree from '../red_black_tree';
+import { RBTNode } from '../red_black_tree';
 
 import seedrandom from 'seedrandom';
 import { performance } from 'perf_hooks';

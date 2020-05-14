@@ -25,6 +25,10 @@ class RedBlackTree {
     this.Node = Node;
   }
 
+  lookup(key) {
+
+  }
+
   /**
    * The two rotation functions are symetric, and could presumably
    * be collapsed into one that takes a direction 'left' or 'right',
@@ -107,6 +111,18 @@ class RedBlackTree {
   insert(key, value) {
     const node = this._insertInternal(key, value);
     this._insertRebalance(node);
+  }
+
+  delete(key) {
+
+  }
+
+  count() {
+
+  }
+
+  forEach(callback) {
+    
   }
 }
 

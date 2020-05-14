@@ -1,5 +1,5 @@
-import BinarySearchTree from './binary_search_tree';
-import RedBlackTree from './red_black_tree';
+import BinarySearchTree from '../binary_search_tree';
+import RedBlackTree from '../red_black_tree';
 
 // Note: RedBlackTrees also have specific tests
 // in red_black_tree.test.js
