@@ -64,11 +64,11 @@ $ npm test
 
 1. Read through the existing code in `src/data_structures/red_black_tree.js` and ensure you understand how it works
 1. Make sure that both the binary search tree tests and the red-black tree tests are running (and failing) against `RedBlackTree`
-1. Implement `RedBlackTree._insertRebalance()` to pass the tests
-1. Implement `RedBlackTree.delete()` to pass the tests
+1. Implement `RedBlackTree._insertInternal()` and `RedBlackTree._insertRebalance()` to pass the tests
 
 ### Optional
 
+1. Implement `RedBlackTree.delete()` to pass the tests
 1. Implement a visualization of a user list that relies on a red-black tree
 1. Write a command-line program to profile the performance of an ordered dictionary. It should...
     - Build a tree of a certain size and then measure the time it takes to do various operations
