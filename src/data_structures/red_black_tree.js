@@ -1,11 +1,14 @@
+import BinarySearchTree from "./binary_search_tree";
+
 // Exported for the tests :(
 export class RBTNode {
-  static BLACK = 'black';
-  static RED = 'red';
+  static BLACK = "black";
+  static RED = "red";
   static sentinel = Object.freeze({ color: RBTNode.BLACK });
 
   constructor({
-    key, value,
+    key,
+    value,
     color = RBTNode.RED,
     parent = RBTNode.sentinel,
     left = RBTNode.sentinel,
@@ -20,32 +23,28 @@ export class RBTNode {
   }
 }
 
-class RedBlackTree {
+class RedBlackTree extends BinarySearchTree {
   constructor(Node = RBTNode) {
-    this.Node = Node;
-  }
-
-  lookup(key) {
-
+    super(RBTNode);
   }
 
   /**
-   * The two rotation functions are symetric, and could presumably
+   * The two rotation functions are symmetric, and could presumably
    * be collapsed into one that takes a direction 'left' or 'right',
    * calculates the opposite, and uses [] instead of . to access.
-   * 
+   *
    * Felt too confusing to be worth it. Plus I bet* the JIT optimizes two
    * functions with static lookups better than one with dynamic lookups.
-   * 
+   *
    * (*without any evidence whatsoever, 10 points to anyone who tries it out)
    */
   _rotateLeft(node) {
     const child = node.right;
 
     if (node === RBTNode.sentinel) {
-      throw new Error('Cannot rotate a sentinel node');
+      throw new Error("Cannot rotate a sentinel node LEFT");
     } else if (child === RBTNode.sentinel) {
-      throw new Error('Cannot rotate away from a sentinal node');
+      throw new Error("Cannot rotate away from a sentinel node LEFT");
     }
 
     // turn child's left subtree into node's right subtree
@@ -76,9 +75,9 @@ class RedBlackTree {
     const child = node.left;
 
     if (node === RBTNode.sentinel) {
-      throw new Error('Cannot rotate a sentinel node');
+      throw new Error("Cannot rotate a sentinel node RIGHT");
     } else if (child === RBTNode.sentinel) {
-      throw new Error('Cannot rotate away from a sentinal node');
+      throw new Error("Cannot rotate away from a sentinel node RIGHT");
     }
 
     // turn child's right subtree into node's left subtree
@@ -102,10 +101,57 @@ class RedBlackTree {
     node.parent = child;
   }
 
-  _insertInternal(key, value) {
-  }
-
   _insertRebalance(node) {
+
+    while (node.color === RBTNode.RED && node.parent.color === RBTNode.RED) {
+      let grandparent = node.parent?.parent;
+
+      // parent is left child of grandparent
+      if (node.parent === grandparent.left) {
+        const uncle = grandparent?.right;
+
+        if (uncle.color === RBTNode.RED) {
+          uncle.color = RBTNode.BLACK;
+          node.parent.color = RBTNode.BLACK;
+          grandparent.color = RBTNode.RED;
+          node = grandparent;
+        } else {
+          // uncle is black
+          if (node === node.parent.right) {
+            // node is the right child of the parent
+            node = node.parent;
+            this._rotateLeft(node);
+          } else {
+            // node is the left child of the parent
+            node.parent.color = RBTNode.BLACK;
+            grandparent.color = RBTNode.RED;
+            this._rotateRight(grandparent);
+          }
+        }
+      } else {
+        // parent is right child of grandparent
+        const uncle = grandparent?.left;
+
+        if (uncle.color === RBTNode.RED) {
+          uncle.color = RBTNode.BLACK;
+          node.parent.color = RBTNode.BLACK;
+          grandparent.color = RBTNode.RED;
+          node = grandparent;
+        } else {
+          // uncle is black
+          if (node === node.parent.left) {
+            node = node.parent;
+            this._rotateRight(node);
+          } else {
+            // node is the right child of the parent
+            node.parent.color = RBTNode.BLACK;
+            grandparent.color = RBTNode.RED;
+            this._rotateLeft(grandparent);
+          }
+        }
+      }
+    }
+    return (this._root.color = RBTNode.BLACK);
   }
 
   insert(key, value) {
@@ -114,17 +160,8 @@ class RedBlackTree {
   }
 
   delete(key) {
-
-  }
-
-  count() {
-
-  }
-
-  forEach(callback) {
-    
+    // TODO
   }
 }
-
 
 export default RedBlackTree;
